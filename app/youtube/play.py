@@ -32,3 +32,10 @@ def create_youtube_url(command):
     r"play\s+(.+)",
     r"youtube\s+(.+)"
   ]
+  query=command
+  for pattern in pattern:
+    match=re.search(
+      pattern
+      text
+    )
+    
