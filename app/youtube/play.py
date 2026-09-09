@@ -1,74 +1,25 @@
-import re
-import urlib.parse
-import urlib.request
+from flask import Flask, render_template
+from app.youtube import youtube_bp
 
-def get_vid(query):
-  try:
-    encoded=urllib.parse.quote(query)
-    url=("https://www.youtube.com/results"
-         "?search_query="+encoded)
-    request=urllib.request.Request(
-      url,
-      headers={
-        "User-Agent":"Mozilla/5,0"
-      }
+
+def create_app():
+
+    app = Flask(__name__)
+
+    app.register_blueprint(
+        youtube_bp,
+        url_prefix="/youtube"
     )
-    data=urlib.request.urlopen(
-      request,
-      timeout=5
-    ).read().decode("utf-8",errors="ignore")
-    ids=re.findall(
-      r'"videoId":"([^"]+", data
-    )
-    return ids[0] if ids else none
-  except Expection:
-    return none:
 
-def create_youtube_url(command):
-  text+command.lower().strip()
-  pattern=[
-    r"play\s+song\s+(.+)",
-    r"play\s+music\s+(.+)",
-    r"play\s+(.+)",
-    r"youtube\s+(.+)"
-  ]
-  query=command
-  for pattern in pattern:
-    match=re.search(
-      pattern
-      text
-    )
-    if match:
-      query=match.group(1)
-      break
+    @app.route("/")
+    def home():
+        return render_template("index.html")
 
-query=query.strip()
+    @app.route("/html")
+    def html():
+        return render_template("index.html")
 
-video_id=get_vid(query)
-if not video_id:
-  return None
-
-return(
-       "https://www.youtube.com/embed/"
-        + video_id
-        + "?autoplay=1&mute=0"
-)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return app
 
 
 
