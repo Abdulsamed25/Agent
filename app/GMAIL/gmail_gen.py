@@ -30,6 +30,35 @@ Output exactly:
 
 SUBJECT:<subject>
 
+BODY:
+<email body>
+
+User command:
+{command}
+"""
+
+   url=(
+      f"https://generativelanguage.googleapis.com/"
+      f"v1beta/models/{MODEL}:generatecontent"
+   )
+
+payload={
+ "contents":[{"parts":[{"text":prompt}]}],
+ "generationConfig":{
+    "temperature":0.7,
+    "maxoutputtokens":800
+ }
+}
+req = urllib.request.Request(
+     url,
+     data=json.dumps(payload).encode(),
+     header={
+     "Content-Type": "application/json",
+     "x-goog-api-key": API_KEY
+     },
+     methods="post"
+)
+
 
 
 
